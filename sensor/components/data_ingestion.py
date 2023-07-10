@@ -45,7 +45,7 @@ class DataIngestion:
     def initiate_data_ingestion(self)->DataIngestionArtifacts:
         try:
             df = self.get_data_from_mongodb()
-            df1 = df.dropna()
+            df1 = df.drop(self.data_ingestion_config.SCHEMA_CONFIG["drop_columns"],axis=1)
             self.split_data_as_train_test(df1)
             data_ingestion_artifacts = DataIngestionArtifacts(
                 train_data_file_path=self.data_ingestion_config.DATA_INGESTION_TRAIN_ARTIFACT_FILE_NAME,
